@@ -38312,7 +38312,7 @@ var render = function () {
               staticClass: "btn headline__btn",
               on: { click: _vm.generateUsers },
             },
-            [_vm._v("Пустить в клуб еще 5 человек")]
+            [_vm._v("Впустить в клуб еще 15 человек")]
           ),
         ])
       : _vm._e(),
@@ -50918,8 +50918,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\OpenServer\domains\laravel.local\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\OpenServer\domains\laravel.local\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\OpenServer\domains\club.local\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\OpenServer\domains\club.local\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

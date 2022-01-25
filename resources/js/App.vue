@@ -4,7 +4,7 @@
         <div class="headline"  v-if="danceFloorInfo">
             <h3 v-if="danceFloorInfo['currentTrack']" class="track-info">На танцполе {{danceFloorInfo.danceList.length + danceFloorInfo.drinkingList.length}} человек(а)
             </h3>
-            <button class="btn headline__btn" @click="generateUsers">Пустить в клуб еще 5 человек</button>
+            <button class="btn headline__btn" @click="generateUsers">Впустить в клуб еще 15 человек</button>
         </div>
         <div class="headline" v-if="danceFloorInfo['currentTrack']">
             <h3 v-if="danceFloorInfo['currentTrack']" class="track-info">Играет музыка:
