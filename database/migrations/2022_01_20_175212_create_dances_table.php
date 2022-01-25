@@ -18,6 +18,10 @@ class CreateDancesTable extends Migration
             $table->string('name');
             $table->json('movements');
         });
+
+        \Artisan::call('db:seed', [
+            '--class' => 'DancesTableSeeder',
+        ]);
     }
 
     /**

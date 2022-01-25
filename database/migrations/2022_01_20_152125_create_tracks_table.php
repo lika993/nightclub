@@ -20,6 +20,10 @@ class CreateTracksTable extends Migration
             $table->string('genre');
             $table->decimal('duration',  6);
         });
+
+        \Artisan::call('db:seed', [
+            '--class' => 'TracksTableSeeder',
+        ]);
     }
 
     /**

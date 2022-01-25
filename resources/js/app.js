@@ -23,8 +23,7 @@ axios.defaults.baseURL = '/api/v1/';
  */
 
 
-console.log(process.env)
-const app = new Vue({
+new Vue({
     el: '#app',
     render(h) {
         return h(App)

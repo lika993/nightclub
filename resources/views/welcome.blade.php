@@ -19,6 +19,6 @@
     </head>
     <body>
       <div id="app"></div>
-      <script src="/js/app.js"></script>
+      <script src="/js/app.js?random=<?php echo uniqid();?>"></script>
     </body>
 </html>

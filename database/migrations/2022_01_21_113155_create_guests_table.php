@@ -19,6 +19,10 @@ class CreateGuestsTable extends Migration
             $table->string('gender');
             $table->json('skills');
         });
+
+        \Artisan::call('db:seed', [
+            '--class' => 'GuestsTableSeeder',
+        ]);
     }
 
     /**

@@ -1,72 +1,91 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## О проекте
 
-## About Laravel
+NightClub - тестовое задание для приема на работу в FIX, написанный на laravel и vue фреймворках
+Переменные окружения:
+* local
+* dev
+* production 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Условие
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+В ночной клуб приходят мальчики и девочки. Некоторые из них любят, могут или умеют танцевать. Каждый персонаж, пришедший в ночной клуб, может обладать разными навыками танца под разную музыку.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Когда играет Rnb на танцполе танцуют те, кто танцуют хип-хоп, рнб. Когда играет Electrohouse на танцполе танцуют те, кто танцуют Electrodance, house. Когда играет Поп-музыка танцуют те, кто умеют танцевать под поп-музыку. Если человек не умеет танцевать под данную музыку, он идет в бар и пьет водку.
 
-## Learning Laravel
+Танцы представляют из себя движения телом, руками, ногами, головой. В разных танцах они задействованы по-разному:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+в хип хопе покачивание телом вперед-назад, ноги в полуприсяде, руки согнуты в локтях, головой вперед-назад.
+в электродэнс покачивание туловищем вперед-назад, почти нет движения головой, круговые движения-вращения руками, ноги двигаются в ритме.
+в танцах под поп-музыку в основном плавные движения туловищем, руками, ногами и головой.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Необходимо эмулировать ночной клуб с произвольным количеством разных персонажей и с произвольным набором умений танцевать у каждого из них. В то время, когда они слышат музыку, персонажи должны соответствующим образом себя вести: танцевать или пить водку в баре.
 
-## Laravel Sponsors
+Реализовать минимальный фронт.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Описание
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
 
-## Contributing
+* При запуске приложения создается 15 человек с произвольным уровнем танцевальных скиллов
+* При нажатии на кнопку "Пустить в клуб еще 5 человек" создается 5 новых людей с произвольным уровнем скиллов
+* При нажатии на кнопку "Сменить музыку" меняется трек
+* При нажатии на кнопку "Показать/Скрыть движения" раскрывается/скрывается список танцевальных движений, выполняющихся на данный момент
+* По анимированным изображениям видим, кто что танцует (есть определенный набор изображений для каждого танца) - изображение для каждого посетителя клуба выбирается рандомно, чтобы разнообразить движение танцпола
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Security Vulnerabilities
+## P.S.
+"В ближайшем будущем" планируется внедрение плеера для большей динамики клуба
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Как запустить
 
-## License
+* склонировать сервис в желаемую папку, далее именуем ее FOLDER в документе
+* Скопировать конфиги для сервиса в файлы *.env*
+```
+   cp -p .env.example .env
+```
 
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+*  заменить на свои конфиги:
+
+
+   ------------
+         APP_ENV - переменная окружения 
+         APP_KEY - секретный ключ приложения
+         APP_DEBUG - включить или выключить показ ошибок на сервисе
+         DB_CONNECTION=dbc
+         DB_HOST=dbhost
+         DB_PORT=3306
+         DB_DATABASE=dbaname
+         DB_USERNAME=dbuser
+         DB_PASSWORD=dbpass
+
+* Задать права 777 для папки FOLDER/storage
+```
+sudo chmod 777 -R storage
+
+```  
+
+* [Установить composer](https://getcomposer.org/) и выполнить
+```php
+php composer.phar install
+```
+* Сгенерировать случайный ключ командой
+```
+php artisan key:generate
+```
+* Запустить миграции
+```
+php artisan migrate
+ ```
+* Запустить в консоли - запустить проект локально 
+```
+php artisan serve
+ ``` 
+* Почистить конфиги
+ ```
+    php artisan config:cache
+ ```
+* Скомпилировать фронт
+ ```sh
+ npm i
+npm run watch
+ ```
