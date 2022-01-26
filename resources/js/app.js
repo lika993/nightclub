@@ -27,7 +27,5 @@ axios.defaults.baseURL = '/api/v1/';
 new Vue({
     el: '#app',
     store,
-    render(h) {
-        return h(App)
-    }
+    render: (h) => h(App)
 });
