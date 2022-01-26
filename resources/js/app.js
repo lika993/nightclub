@@ -5,6 +5,7 @@
  */
 require('./bootstrap');
 import axios from 'axios';
+import store from './store';
 window.Vue = require('vue');
 import App from './App.vue';
 Vue.prototype.$http = axios;
@@ -25,6 +26,7 @@ axios.defaults.baseURL = '/api/v1/';
 
 new Vue({
     el: '#app',
+    store,
     render(h) {
         return h(App)
     }

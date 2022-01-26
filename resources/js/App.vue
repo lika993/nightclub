@@ -1,70 +1,43 @@
 <template>
     <div class="page page--main">
         <h1 class="title--main">Добро пожаловать на танцпол</h1>
-        <div class="headline"  v-if="danceFloorInfo">
-            <h3 v-if="danceFloorInfo['currentTrack']" class="track-info">На танцполе {{danceFloorInfo.danceList.length + danceFloorInfo.drinkingList.length}} человек(а)
+        <div class="headline">
+            <h3 v-if="currentTrack && danceList && drinkingList" class="track-info">В клубе {{guestCount()}} человек(а)
             </h3>
             <button class="btn headline__btn" @click="generateUsers">Впустить в клуб еще 15 человек</button>
         </div>
-        <div class="headline" v-if="danceFloorInfo['currentTrack']">
-            <h3 v-if="danceFloorInfo['currentTrack']" class="track-info">Играет музыка:
-                <span class="track-info__name">"{{danceFloorInfo.currentTrack['name']}}"</span>,
-                <span>{{danceFloorInfo.currentTrack['artist']}}</span>,
-                <span class="track-info__genre">{{danceFloorInfo.currentTrack['genre']}}</span>.
-                <span>{{getTime(danceFloorInfo.currentTrack['duration'])}}</span>
+        <div class="headline" v-if="currentTrack">
+            <h3 v-if="currentTrack" class="track-info">Играет музыка:
+                <span class="track-info__name">"{{currentTrack['name']}}"</span>,
+                <span>{{currentTrack['artist']}}</span>,
+                <span class="track-info__genre">{{currentTrack['genre']}}</span>.
+                <span v-if="currentTrack['duration']">{{getTime(currentTrack['duration'])}}</span>
             </h3>
             <button class="btn headline__btn" @click="changeMusic">Сменить музыку</button>
         </div>
-        <div class="area" v-if="danceFloorInfo['currentTrack']">
-            <vue-custom-scrollbar :settings="settings" class="dance-floor">
-                <div class="area_background">
-                    <h3>Танцуют {{danceFloorInfo.danceList.length}}:</h3>
-                    <div class="area__grid">
-                        <div  class="area__grid-item guest" v-for="guest,index in danceFloorInfo.danceList" :style="{ backgroundImage: `url('${guest.currentDanceImage}')` }">
-                            <div class="area__grid-title">
-                                {{guest['name']}}
-                            </div>
-                            <div class="guest__movements">
-                                <button class="btn guest__movements-btn" @click="toggleMovementsList($event)">
-                                    <span class="guest__movements-btn-value--show">
-                                        Показать движения
-                                    </span>
-                                    <span class="guest__movements-btn-value--hide">
-                                        Скрыть движения
-                                    </span>
-                                </button>
-                                <div :id="index" class="guest__movements-list" :class="{'guest__movements-list--visible': canShow(index)}">
-                                    <div v-for="movement in guest['movements']" class="guest__movements-item" v-html="movement"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </vue-custom-scrollbar>
-            <vue-custom-scrollbar v-if="danceFloorInfo['drinkingList']" :settings="settings"  class="bar">
-                <div class="area_background">
-                    <h3>Пьют водку {{danceFloorInfo.drinkingList.length}}:</h3>
-                    <div class="area__grid">
-                        <div class="area__grid-item" v-for="guest in danceFloorInfo.drinkingList" :style="{ backgroundImage: `url('${guest.currentDanceImage}')` }">
-                            <div class="area__grid-title">
-                                {{guest['name']}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </vue-custom-scrollbar>
+        <div class="area" v-if="currentTrack">
+            <danceFloor :settings="settings"
+                        :toggleMovementsList="toggleMovementsList"
+                        :currentTrack="currentTrack"
+                        :danceList="danceList"
+                        :canShow="canShow"></danceFloor>
+            <bar class="bar"
+                :settings="settings"
+                :drinkingList="drinkingList"></bar>
         </div>
     </div>
 </template>
 
 <script>
-import vueCustomScrollbar from 'vue-custom-scrollbar'
-import "vue-custom-scrollbar/dist/vueScrollbar.css"
+import vueCustomScrollbar from 'vue-custom-scrollbar';
+import 'vue-custom-scrollbar/dist/vueScrollbar.css';
+import danceFloor from './components/dance-floor';
+import bar from './components/bar';
+import axios from "axios";
 
 export default{
     data(){
         return {
-            danceFloorInfo: {},
             errors: [],
             settings: {
                 suppressScrollY: false,
@@ -74,51 +47,59 @@ export default{
         }
     },
     components: {
-        vueCustomScrollbar
+        vueCustomScrollbar, danceFloor, bar
+    },
+    computed: {
+        currentTrack() {
+            return this.$store.getters['danceFloor/currentTrack'];
+        },
+        danceList() {
+            return this.$store.getters['danceFloor/danceList'];
+        },
+        drinkingList() {
+            return this.$store.getters['danceFloor/drinkingList'];
+        }
     },
     methods: {
         canShow(index) {
-            return (this.danceFloorInfo.danceList[index] && this.danceFloorInfo.danceList[index]['show_movements'] === true)
+            return (this.danceList[index] && this.danceList[index]['show_movements'] === true);
+        },
+        guestCount() {
+            return this.danceList.length + this.drinkingList.length;
         },
         getDanceFloorInfo(currentTrackId) {
-            let currentTrackParam = currentTrackId ? '?trackId=' + currentTrackId : '';
-            this.$http({
-                url: `getDanceFloorInfo${currentTrackParam}`,
-                method: 'GET'})
-                .then(response => {
-                    this.danceFloorInfo = response.data
-                })
-                .catch(e => {
-                    this.errors.push(e)
-                })
+            this.$store.dispatch('danceFloor/getInfo', {
+                currentTrackId
+            })
         },
         generateUsers() {
-            let currentTrackId = this.danceFloorInfo.currentTrack.id
+            let currentTrackId = this.currentTrack.id;
             this.$http({
-                url: 'generateUsers?trackId=' + currentTrackId,
+                url: 'generateUsers',
                 method: 'GET'
-            })
-            .then(response => {
+            }).then((response) => {
                 if (response.data.status === 'success') {
-                    this.getDanceFloorInfo(currentTrackId);
+                    this.$store.dispatch('danceFloor/getInfo', {
+                        currentTrackId
+                    })
                 }
             })
             .catch(e => {
-                this.errors.push(e)
+                this.errors.push(e);
             })
         },
         changeMusic() {
             this.getDanceFloorInfo();
         },
         getTime(sec) {
-            return new Date(sec * 1000).toISOString().substr(11, 8)
+            return new Date(sec * 1000).toISOString().substr(11, 8);
         },
         toggleMovementsList(event) {
             event.target.closest('.guest__movements').classList.toggle('guest__movements--opened');
         }
     },
     mounted() {
-        this.getDanceFloorInfo();
+        this.$store.dispatch('danceFloor/getInfo', {});
     }
 }
 </script>
