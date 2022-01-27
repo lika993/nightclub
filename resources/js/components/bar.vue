@@ -14,13 +14,7 @@
 </template>
 
 <script>
-import vueCustomScrollbar from 'vue-custom-scrollbar';
-import 'vue-custom-scrollbar/dist/vueScrollbar.css';
-
 export default{
-    props: ['settings', 'drinkingList'],
-    components: {
-        vueCustomScrollbar
-    }
+    props: ['settings', 'drinkingList']
 }
 </script>

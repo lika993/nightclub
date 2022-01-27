@@ -6,6 +6,8 @@
 require('./bootstrap');
 import axios from 'axios';
 import store from './store';
+import vueCustomScrollbar from 'vue-custom-scrollbar';
+import 'vue-custom-scrollbar/dist/vueScrollbar.css';
 window.Vue = require('vue');
 import App from './App.vue';
 Vue.prototype.$http = axios;
@@ -22,7 +24,7 @@ axios.defaults.baseURL = '/api/v1/';
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+Vue.component('vueCustomScrollbar', vueCustomScrollbar);
 
 new Vue({
     el: '#app',
