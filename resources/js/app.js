@@ -12,6 +12,7 @@ window.Vue = require('vue');
 import App from './App.vue';
 Vue.prototype.$http = axios;
 axios.defaults.baseURL = '/api/v1/';
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -24,7 +25,7 @@ axios.defaults.baseURL = '/api/v1/';
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.component('vueCustomScrollbar', vueCustomScrollbar);
+Vue.component('vue-custom-scrollbar', vueCustomScrollbar);
 
 new Vue({
     el: '#app',

@@ -3,7 +3,7 @@
         <vue-custom-scrollbar :settings="settings" class="area_background">
             <h3>Пьют водку {{drinkingList.length}}:</h3>
             <div class="area__grid">
-                <div class="area__grid-item" v-for="guest in drinkingList" :style="{ backgroundImage: `url('${guest.currentDanceImage}')` }">
+                <div class="area__grid-item" v-for="guest in drinkingList" :key="guest.id" :style="{ backgroundImage: `url('${guest.currentDanceImage}')` }">
                     <div class="area__grid-title">
                         {{guest['name']}}
                     </div>

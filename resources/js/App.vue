@@ -2,12 +2,12 @@
     <div class="page page--main">
         <h1 class="title--main">Добро пожаловать на танцпол</h1>
         <div class="headline">
-            <h3 v-if="currentTrack && danceList && drinkingList" class="track-info">В клубе {{guestCount()}} человек(а)
+            <h3 v-if="guestCount" class="track-info">В клубе {{guestCount()}} человек(а)
             </h3>
             <button class="btn headline__btn" @click="generateUsers">Впустить в клуб еще 15 человек</button>
         </div>
-        <div class="headline" v-if="currentTrack">
-            <h3 v-if="currentTrack" class="track-info">Играет музыка:
+        <div class="headline" v-if="!objectIsEmpty(currentTrack)">
+            <h3 v-if="currentTrack['name']" class="track-info">Играет музыка:
                 <span class="track-info__name">"{{currentTrack['name']}}"</span>,
                 <span>{{currentTrack['artist']}}</span>,
                 <span class="track-info__genre">{{currentTrack['genre']}}</span>.
@@ -15,7 +15,7 @@
             </h3>
             <button class="btn headline__btn" @click="changeMusic">Сменить музыку</button>
         </div>
-        <div class="area" v-if="currentTrack">
+        <div class="area" v-if="!objectIsEmpty(currentTrack)">
             <danceFloor :settings="settings"
                         :toggleMovementsList="toggleMovementsList"
                         :currentTrack="currentTrack"
@@ -29,11 +29,8 @@
 </template>
 
 <script>
-import vueCustomScrollbar from 'vue-custom-scrollbar';
-import 'vue-custom-scrollbar/dist/vueScrollbar.css';
 import danceFloor from './components/dance-floor';
 import bar from './components/bar';
-import axios from "axios";
 
 export default{
     data(){
@@ -47,7 +44,7 @@ export default{
         }
     },
     components: {
-        vueCustomScrollbar, danceFloor, bar
+       danceFloor, bar
     },
     computed: {
         currentTrack() {
@@ -63,6 +60,12 @@ export default{
     methods: {
         canShow(index) {
             return (this.danceList[index] && this.danceList[index]['show_movements'] === true);
+        },
+        objectIsEmpty(obj) {
+            for (let key in obj) {
+                return false;
+            }
+            return true;
         },
         guestCount() {
             return this.danceList.length + this.drinkingList.length;
